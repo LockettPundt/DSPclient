@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import {
   Box, Form, CheckBoxGroup, Button, TextInput, CheckBox, Calendar, Text, Anchor, Select
 } from 'grommet';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import API_URL from '../utils/apiconn';
 import TermsModal from './TermsModal';
 
-const OrderForm = () => {
+const OrderForm = ({ setConfirmationID }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -15,6 +16,7 @@ const OrderForm = () => {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [modalStatus, setModalStatus] = useState(false);
   const [time, setTime] = useState('');
+  const history = useHistory();
 
   const options = [
     'Drone Pictures',
@@ -30,7 +32,7 @@ const OrderForm = () => {
     "9:00", "10:00", "11:00", "12:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00"
   ]
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const jobInfo = {
       firstName,
@@ -42,7 +44,9 @@ const OrderForm = () => {
       acceptTerms,
       services
     }
-    const response = axios.post(API_URL, jobInfo).then((data) => console.log(data));
+    const response = await axios.post(`${API_URL}addjob`, jobInfo);
+    setConfirmationID(response.data._id);
+    history.push(`./order/${response.data._id}`)
   };
 
   return (
@@ -124,7 +128,11 @@ const OrderForm = () => {
             label="Agree to Terms"
           />
         </Box>
-        <Box>
+        <Box
+          margin={{
+            vertical: "large"
+          }}
+        >
           <Button
             primary
             margin="auto"
