@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layer, Box, Image } from 'grommet';
-import Terms from './Terms.png';
+import Terms from './assets/Terms.png';
 
 const TermsModal = ({ setModalStatus }) => {
 

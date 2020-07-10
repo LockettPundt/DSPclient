@@ -7,7 +7,7 @@ import axios from 'axios';
 import API_URL from '../utils/apiconn';
 import TermsModal from './TermsModal';
 
-const OrderForm = ({ setConfirmationID }) => {
+const OrderForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -45,7 +45,6 @@ const OrderForm = ({ setConfirmationID }) => {
       services
     }
     const response = await axios.post(`${API_URL}addjob`, jobInfo);
-    setConfirmationID(response.data._id);
     history.push(`./order/${response.data._id}`)
   };
 
