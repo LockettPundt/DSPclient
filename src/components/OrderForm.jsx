@@ -3,11 +3,9 @@ import {
   Box, Form, CheckBoxGroup, Button, TextInput, CheckBox, Calendar, Text, Anchor, Select
 } from 'grommet';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
-import API_URL from '../utils/apiconn';
 import TermsModal from './TermsModal';
 import { useMutation } from '@apollo/react-hooks';
-import { ADD_ORDER } from '../components/mutations/mutations';
+import { ADD_ORDER } from '../components/queries/mutations';
 
 const OrderForm = () => {
   const [firstName, setFirstName] = useState('');
@@ -46,7 +44,7 @@ const OrderForm = () => {
       acceptTerms,
       services
     }
-    // const orderString = JSON.stringify(jobInfo);
+
     const response = await addOrder({
       variables: {
         order: jobInfo,
