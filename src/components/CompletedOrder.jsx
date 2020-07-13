@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Text } from 'grommet';
-import { GET_ORDER } from './queries/queries';
+import { GET_ORDER } from '../queries/queries';
 import { useQuery } from '@apollo/react-hooks';
 
 

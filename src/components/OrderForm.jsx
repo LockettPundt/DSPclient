@@ -5,7 +5,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import TermsModal from './TermsModal';
 import { useMutation } from '@apollo/react-hooks';
-import { ADD_ORDER } from '../components/queries/mutations';
+import { ADD_ORDER } from '../queries/mutations';
 
 const OrderForm = () => {
   const [firstName, setFirstName] = useState('');
