@@ -6,6 +6,8 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import API_URL from '../utils/apiconn';
 import TermsModal from './TermsModal';
+import { useMutation } from '@apollo/react-hooks';
+import { ADD_ORDER } from '../components/mutations/mutations';
 
 const OrderForm = () => {
   const [firstName, setFirstName] = useState('');
@@ -17,6 +19,7 @@ const OrderForm = () => {
   const [modalStatus, setModalStatus] = useState(false);
   const [time, setTime] = useState('');
   const history = useHistory();
+  const [addOrder] = useMutation(ADD_ORDER);
 
   const options = [
     'Drone Pictures',
@@ -24,7 +27,6 @@ const OrderForm = () => {
     'Photography',
     'Twilight Shoot',
     'Web Gallery',
-    'Prostitution',
     'Video',
     'Virtual Tour',
   ];
@@ -44,8 +46,14 @@ const OrderForm = () => {
       acceptTerms,
       services
     }
-    const response = await axios.post(`${API_URL}addjob`, jobInfo);
-    history.push(`./order/${response.data._id}`)
+    // const orderString = JSON.stringify(jobInfo);
+    const response = await addOrder({
+      variables: {
+        order: jobInfo,
+      }
+    });
+    console.log(response);
+    history.push(`./order/${response.data.addOrder.id}`)
   };
 
   return (
