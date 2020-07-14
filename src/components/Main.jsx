@@ -1,44 +1,42 @@
 import React from 'react';
-import { Box, Text, Image, Button } from 'grommet';
-import Logo from '../assets/DSPLogo.png'
+import {
+  Box, Image, Button,
+} from 'grommet';
+import Logo from '../assets/DSPLogo.png';
 
-
-const Main = () => {
-
-  return (
+const Main = () => (
+  <Box
+    responsive
+    width="medium"
+    height="500px"
+    margin={{
+      horizontal: 'auto',
+      // vertical: "auto"
+    }}
+    justify="evenly"
+  >
+    <Box>
+      <Image
+        src={Logo}
+        fill
+      />
+    </Box>
     <Box
-      responsive
-      width="medium"
-      height="100vh"
-      margin={{
-        horizontal: "auto",
-      }}
+      direction="row"
       justify="evenly"
     >
-      <Box>
-        <Image
-          src={Logo}
-          fill
-        />
-      </Box>
-      <Box
-        direction="row"
-        justify="evenly"
-      >
-        <Button
-          type="button"
-          primary
-          label="New Order"
-          href="./createorder"
-        />
-        <Button
-          label="Update order"
-          href="./"
-        />
-      </Box>
+      <Button
+        type="button"
+        primary
+        label="New Order"
+        href="./createorder"
+      />
+      <Button
+        label="Update order"
+        href="./updateorder"
+      />
     </Box>
-  )
-};
-
+  </Box>
+);
 
 export default Main;
