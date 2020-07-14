@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import {
-  Box, Form, CheckBoxGroup, Button, TextInput, CheckBox, Calendar, Text, Anchor, Select
+  Box, Form, CheckBoxGroup, Button, TextInput, CheckBox, Calendar, Text, Anchor, Select,
 } from 'grommet';
 import { useHistory } from 'react-router-dom';
-import TermsModal from './TermsModal';
 import { useMutation } from '@apollo/react-hooks';
+import TermsModal from './TermsModal';
 import { ADD_ORDER } from '../queries/mutations';
 
 const OrderForm = () => {
@@ -29,8 +29,8 @@ const OrderForm = () => {
     'Virtual Tour',
   ];
   const selectOptions = [
-    "9:00", "10:00", "11:00", "12:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00"
-  ]
+    '9:00', '10:00', '11:00', '12:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00',
+  ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,16 +42,16 @@ const OrderForm = () => {
       jobDate,
       time,
       acceptTerms,
-      services
-    }
+      services,
+    };
 
     const response = await addOrder({
       variables: {
         order: jobInfo,
-      }
+      },
     });
     console.log(response);
-    history.push(`./order/${response.data.addOrder.id}`)
+    history.push(`./order/${response.data.addOrder.id}`);
   };
 
   return (
@@ -59,17 +59,16 @@ const OrderForm = () => {
       responsive
       width="medium"
       margin={{
-        horizontal: "auto",
-        top: "20px",
-        bottom: "20px"
+        horizontal: 'auto',
+        top: '20px',
+        bottom: '20px',
       }}
       elevation="small"
       pad="small"
     >
       {modalStatus
         ? <TermsModal setModalStatus={setModalStatus} />
-        : null
-      }
+        : null}
       <Form onSubmit={(e) => handleSubmit(e)}>
         <Box
           height="small"
@@ -101,20 +100,41 @@ const OrderForm = () => {
           options={options}
           onChange={(e) => setServices(e.value)}
         />
-        <Calendar
+        <Box
+          height="small"
+          justify="evenly"
+        >
+          {/* initial option for date selection  */}
+          {/* <Calendar
           margin="small"
           size="small"
           animate
           required
           onSelect={(e) => setjobDate(e)}
-        />
-        <Select
+        /> */}
+          < TextInput
+            type="date"
+            // size="small"
+            animate
+            required
+            onChange={(e) => setjobDate(e.target.value)}
+          />
+          {/* initial option for time selection. */}
+          {/* <Select
           required
           margin="small"
           options={selectOptions}
           value={time}
           onChange={({ option }) => setTime(option)}
-        />
+        /> */}
+          < TextInput
+            type="time"
+            required
+            margin="small"
+            onChange={(e) => setTime(e.target.value)}
+          />
+        </Box>
+
         <Box
           margin="small"
         >
@@ -123,8 +143,8 @@ const OrderForm = () => {
               label="Click "
               onClick={() => setModalStatus(true)}
             />
-         to view terms.
-        </Text>
+            to view terms.
+          </Text>
           <CheckBox
             margin="small"
             required
@@ -135,7 +155,7 @@ const OrderForm = () => {
         </Box>
         <Box
           margin={{
-            vertical: "large"
+            vertical: 'large',
           }}
         >
           <Button
