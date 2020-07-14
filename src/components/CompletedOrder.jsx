@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Text } from 'grommet';
-import { GET_ORDER } from '../queries/queries';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-
+import { GET_ORDER } from '../queries/queries';
 
 const CompletedOrder = () => {
-  const [confirmationNum, setConfirmationNum] = useState(window.location.href.split('/').pop());
+  const { confirmationNum } = useParams()
   const { loading, error, data } = useQuery(GET_ORDER, {
     variables: { id: confirmationNum },
-  })
+  });
 
   if (loading) return 'Preparing your order...';
-  if (error) return `ERROR! ${error.message}`
+  if (error) return `ERROR! ${error.message}`;
 
-  const { email, firstName, lastName, jobDate, services, time, id } = data.singleOrder;
+  const {
+    email, firstName, lastName, jobDate, services, time, id,
+  } = data.singleOrder;
   return (
     <Box>
       <Text>
@@ -34,10 +36,15 @@ const CompletedOrder = () => {
         {email}
       </Text>
       <Text>
-        {services.map(item => (<Text key={item}>{item}{', '}</Text>))}
+        {services.map((item) => (
+          <Text key={item}>
+            {item}
+            {', '}
+          </Text>
+        ))}
       </Text>
     </Box>
-  )
-}
+  );
+};
 
 export default CompletedOrder;
