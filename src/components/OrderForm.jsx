@@ -16,6 +16,7 @@ const OrderForm = () => {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [modalStatus, setModalStatus] = useState(false);
   const [time, setTime] = useState('');
+  const [phone, setPhone] = useState('');
   const history = useHistory();
   const [addOrder] = useMutation(ADD_ORDER);
 
@@ -32,6 +33,7 @@ const OrderForm = () => {
     '9:00', '10:00', '11:00', '12:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00',
   ];
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const jobInfo = {
@@ -43,6 +45,7 @@ const OrderForm = () => {
       time,
       acceptTerms,
       services,
+      phone,
     };
 
     const response = await addOrder({
@@ -93,6 +96,15 @@ const OrderForm = () => {
             value={email}
             required
             onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextInput
+            margin="small"
+            type="tel"
+            placeholder="Phone Number"
+            value={phone}
+            required
+            pattern="[0-9]{10}"
+            onChange={(e) => setPhone(e.target.value)}
           />
         </Box>
         <CheckBoxGroup
