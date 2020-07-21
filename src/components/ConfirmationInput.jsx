@@ -22,7 +22,7 @@ const ConfirmationInput = () => {
   return (
     <Box
       margin={{
-        vertical: "auto",
+        vertical: "large",
         horizontal: "auto",
       }}
       width="medium"
