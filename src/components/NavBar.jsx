@@ -5,7 +5,7 @@ const NavBar = () => (
   <Nav>
     <Anchor
       href="/"
-      icon={<i className="fa fa-home fa-2x" aria-hidden="true" fa-3x></i>}
+      icon={<i className="fa fa-home fa-2x" aria-hidden="true"></i>}
     />
   </Nav>
 )
