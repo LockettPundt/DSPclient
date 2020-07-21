@@ -12,6 +12,7 @@ export const GET_ORDER = gql`
         jobDate
         time
         email
+        phone
       }
     }
     

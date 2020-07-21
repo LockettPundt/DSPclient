@@ -16,6 +16,7 @@ export const ADD_ORDER = gql`
       jobDate
       time
       services
+      phone
     }
   }
 
