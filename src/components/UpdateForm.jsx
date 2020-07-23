@@ -94,6 +94,7 @@ const UpdateForm = () => {
         },
       });
       console.log(response.data);
+      history.push(history.push(`/order/${response.data.updateOrder.id}`))
     } catch (error) {
       console.log(error)
     }

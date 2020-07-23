@@ -15,7 +15,9 @@ const CompletedOrder = () => {
 
   const {
     email, firstName, lastName, jobDate, services, time, id,
-  } = data.singleOrder;
+  } = data.singleOrder
+      ? data.singleOrder
+      : data.updateOrder;
   return (
     <Box
       direction="column"
