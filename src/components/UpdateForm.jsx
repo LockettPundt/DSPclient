@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, TextInput, Form, CheckBoxGroup, Button, Text } from 'grommet';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { GET_ORDER } from '../queries/queries';
-//import { ADD_ORDER } from '../queries/mutations';
+import { UPDATE_ORDER } from '../queries/mutations';
 import { useHistory } from 'react-router-dom';
 
 
@@ -12,6 +12,7 @@ const UpdateForm = () => {
   const { loading, error, data } = useQuery(GET_ORDER, {
     variables: { id: confirmationNum },
   });
+
   const [updateFirstName, setUpdateFirstName] = useState('');
   const [updateLastName, setUpdateLastName] = useState('');
   const [updateEmail, setUpdateEmail] = useState('');
@@ -20,7 +21,22 @@ const UpdateForm = () => {
   const [updateTime, setUpdateTime] = useState('');
   const [updatePhone, setUpdatePhone] = useState('');
   const history = useHistory();
-  // const [addOrder] = useMutation(ADD_ORDER);
+  const [updateOrder] = useMutation(UPDATE_ORDER);
+
+  useEffect(() => {
+    if (!loading && data) {
+      const {
+        email, firstName, lastName, id, services, jobDate, time, phone
+      } = data.singleOrder;
+      setUpdateEmail(email);
+      setUpdateFirstName(firstName);
+      setUpdateLastName(lastName);
+      setUpdateTime(time);
+      setUpdateJobDate(jobDate);
+      setUpdateServices(services);
+      setUpdatePhone(phone);
+    }
+  }, [loading, data])
 
   const options = [
     'Drone Pictures',
@@ -32,22 +48,29 @@ const UpdateForm = () => {
     'Virtual Tour',
   ];
 
+
   if (loading) {
     return (
-      <h3>
+      <Text
+        width="medium"
+        size="large"
+        alignSelf="center"
+        margin="auto"
+      >
         FETCHING ORDER....
-      </h3>
+      </Text>
     )
   }
 
   if (error) {
     return (
-      <h3>
+      <Text>
         Sorry. There was an error processing your request.
         {error.message}
-      </h3>
+      </Text>
     )
   }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,15 +85,34 @@ const UpdateForm = () => {
       services: updateServices,
       phone: updatePhone,
     };
-    console.log(jobInfo);
+    try {
+      console.log('here is the updated info: ', jobInfo);
+      const response = await updateOrder({
+        variables: {
+          id: confirmationNum,
+          order: jobInfo,
+        },
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  const { email, firstName, lastName, id, services, jobDate, time, phone } = data.singleOrder;
-
   return (
-    <Box>
+    <Box
+      width="medium"
+      margin={{
+        horizontal: 'auto',
+        top: '20px',
+        bottom: '20px',
+      }}
+      elevation="small"
+      pad="small"
+
+    >
       <Text>
-        Confirmation Number {id}
+        Confirmation Number {confirmationNum}
       </Text>
       <Form onSubmit={(e) => handleSubmit(e)}>
         <Box
@@ -80,20 +122,20 @@ const UpdateForm = () => {
           <TextInput
             placeholder="First Name"
             required
-            value={updateFirstName ? updateFirstName : firstName}
+            value={updateFirstName}
             onChange={(e) => setUpdateFirstName(e.target.value)}
           />
           <TextInput
             margin="small"
             placeholder="Last Name"
-            value={updateLastName ? updateLastName : lastName}
+            value={updateLastName}
             required
             onChange={(e) => setUpdateLastName(e.target.value)}
           />
           <TextInput
             margin="small"
             placeholder="Email"
-            value={updateEmail ? updateEmail : email}
+            value={updateEmail}
             required
             onChange={(e) => setUpdateEmail(e.target.value)}
           />
@@ -101,7 +143,7 @@ const UpdateForm = () => {
             margin="small"
             type="tel"
             placeholder="Phone Number"
-            value={updatePhone ? updatePhone : phone}
+            value={updatePhone}
             required
             pattern="[0-9]{10}"
             onChange={(e) => setUpdatePhone(e.target.value)}
@@ -110,7 +152,7 @@ const UpdateForm = () => {
         <CheckBoxGroup
           margin="small"
           options={options}
-          value={services}
+          value={updateServices}
           onChange={(e) => setUpdateServices(e.value)}
         />
         <Box
@@ -120,14 +162,14 @@ const UpdateForm = () => {
           < TextInput
             type="date"
             animate
-            value={updateJobDate ? updateJobDate : jobDate}
+            value={updateJobDate}
             required
             onChange={(e) => setUpdateJobDate(e.target.value)}
           />
           < TextInput
             type="time"
             required
-            value={updateTime ? updateTime : time}
+            value={updateTime}
             margin="small"
             onChange={(e) => setUpdateTime(e.target.value)}
           />
