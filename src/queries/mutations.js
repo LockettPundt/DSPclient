@@ -19,5 +19,26 @@ export const ADD_ORDER = gql`
       phone
     }
   }
+`;
 
+export const UPDATE_ORDER = gql`
+
+  mutation updateOrder(
+    $id: ID!
+    $order: OrderInput!
+  ) {
+    updateOrder(
+      id: $id,
+      order: $order,
+    ) {
+      id
+      firstName
+      lastName
+      email
+      jobDate
+      time
+      services
+      phone
+    }
+  }
 `;
