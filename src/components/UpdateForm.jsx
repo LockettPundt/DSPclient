@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, TextInput, Form, CheckBoxGroup, Button, Text } from 'grommet';
 import { useParams } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_ORDER } from '../queries/queries';
 import { UPDATE_ORDER } from '../queries/mutations';
 import { useHistory } from 'react-router-dom';

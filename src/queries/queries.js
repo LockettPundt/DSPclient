@@ -1,9 +1,9 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 
 export const GET_ORDER = gql`
   
-    query gotey($id: ID!) {
+    query getOrder($id: ID!) {
       singleOrder(id: $id) {
         id
         firstName

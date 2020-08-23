@@ -8,13 +8,13 @@ import Navbar from './components/NavBar';
 import UpdateForm from './components/UpdateForm';
 import CompletedOrder from './components/CompletedOrder';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
-import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-boost';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import API_URL from './utils/apiconn';
 import { MainTheme}  from './themes/MainTheme';
 
 const client = new ApolloClient({
   uri: API_URL,
+  cache: new InMemoryCache(),
 })
 
 function App() {

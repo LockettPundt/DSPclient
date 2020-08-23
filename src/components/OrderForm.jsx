@@ -3,7 +3,7 @@ import {
   Box, Form, CheckBoxGroup, Button, TextInput, CheckBox, Calendar, Text, Anchor, Select,
 } from 'grommet';
 import { useHistory } from 'react-router-dom';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import TermsModal from './TermsModal';
 import { ADD_ORDER } from '../queries/mutations';
 

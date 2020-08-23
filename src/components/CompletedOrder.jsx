@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text, Anchor } from 'grommet';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { GET_ORDER } from '../queries/queries';
 
 const CompletedOrder = () => {

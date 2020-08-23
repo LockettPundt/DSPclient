@@ -32,7 +32,7 @@ const Main = () => (
         href="./createorder"
       />
       <Button
-        label="Update order"
+        label="Update Order"
         href="./updateorder"
       />
     </Box>
