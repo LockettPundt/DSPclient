@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextInput, Button, Form, Box, Text, Anchor } from 'grommet';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/client';
 import { GET_ORDER } from '../queries/queries';
 import { useHistory } from 'react-router-dom';
 
