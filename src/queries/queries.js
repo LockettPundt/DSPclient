@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 
 export const GET_ORDER = gql`
   
-    query gotey($id: ID!) {
+    query getOrder($id: ID!) {
       singleOrder(id: $id) {
         id
         firstName
